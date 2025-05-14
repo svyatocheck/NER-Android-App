@@ -1,7 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.kotlin.safeargs)
+}
+
+configurations.all {
+    exclude(group = "xmlpull", module = "xmlpull")
+    exclude(group = "com.intellij", module = "annotations")
 }
 
 android {
@@ -36,7 +42,9 @@ android {
             excludes += listOf(
                 "/META-INF/{AL2.0,LGPL2.1}",
                 "META-INF/INDEX.LIST",
-                "META-INF/DEPENDENCIES"
+                "META-INF/DEPENDENCIES",
+                "xmlpull/xmlpull"
+
             )
             merges += listOf(
                 "META-INF/LICENSE.md",
@@ -46,15 +54,20 @@ android {
         }
     }
 
-    buildFeatures { dataBinding = true }
+    buildFeatures { dataBinding = true
+        viewBinding = true
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions { jvmTarget = "11" }
 
     aaptOptions { noCompress += "tflite" }
+
+
 }
 
 dependencies {
@@ -76,6 +89,8 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.navigation.fragment)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -87,4 +102,15 @@ dependencies {
     implementation(libs.litert.support)
     implementation(libs.tflite.gpu)
     implementation(libs.tflite.gpu.api)
+
+    implementation(libs.androidx.navigation.compose)
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.safeargs)
+
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp       (libs.androidx.room.compiler)
+
 }
+

@@ -3,7 +3,7 @@ package com.svyatoslav.mlapp.core.nlp
 import android.content.Context
 import android.util.Log
 import com.svyatoslav.mlapp.core.IWordPieceTokenizer
-import com.svyatoslav.mlapp.core.models.NERModelPreprocessing
+import com.svyatoslav.mlapp.core.models.NERPreprocessing
 import com.svyatoslav.mlapp.data.model.FeatureModel
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -49,7 +49,7 @@ class WordPieceTokenizer(
         Log.d(TAG, "Raw input: $context")
 
         // Tokenize query (optional question) and truncate to max length
-        val queryTokens = tokenizeText(query ?: "").take(NERModelPreprocessing.MAX_QUERY_LEN)
+        val queryTokens = tokenizeText(query ?: "").take(NERPreprocessing.MAX_QUERY_LEN)
 
         // Split original context into tokens by whitespace
         val origTokens = context.trim().split(regex = "\\s+".toRegex())
@@ -68,7 +68,7 @@ class WordPieceTokenizer(
         }
 
         // Limit context to fit max model input length
-        val maxContextLen = NERModelPreprocessing.MAX_SEQ_LEN - queryTokens.size - 3
+        val maxContextLen = NERPreprocessing.MAX_SEQ_LEN - queryTokens.size - 3
         val docTokensTrimmed =
             if (allDocTokens.size > maxContextLen) allDocTokens.take(maxContextLen) else allDocTokens
 
@@ -101,7 +101,7 @@ class WordPieceTokenizer(
         val inputMask = MutableList(inputIds.size) { 1 }
 
         // Pad input to model's required sequence length
-        while (inputIds.size < NERModelPreprocessing.MAX_SEQ_LEN) {
+        while (inputIds.size < NERPreprocessing.MAX_SEQ_LEN) {
             inputIds.add(0)
             inputMask.add(0)
             segmentIds.add(0)

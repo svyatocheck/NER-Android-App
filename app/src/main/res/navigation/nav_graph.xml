@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/journalFragment">
+
+    <fragment
+        android:id="@+id/journalFragment"
+        android:name="com.svyatoslav.mlapp.ui.journal.JournalFragment"
+        android:label="Journal">
+        <action
+            android:id="@+id/action_journal_to_noteEditor"
+            app:destination="@id/noteEditorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/noteEditorFragment"
+        android:name="com.svyatoslav.mlapp.ui.entry.NoteEditorFragment"
+        android:label="New Entry">
+        <argument
+            android:name="noteId"
+            android:defaultValue="0"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.svyatoslav.mlapp.ui.settings.SettingsFragment"
+        android:label="Settings" />
+
+</navigation>

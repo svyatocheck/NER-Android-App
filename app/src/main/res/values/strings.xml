@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Thesis NER Application</string>
+    <string name="settings">Settings</string>
+    <string name="journal">Journal</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_journal_entry">New Journal Entry</string>
+    <string name="search">Search</string>
 </resources>

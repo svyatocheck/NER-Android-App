@@ -19,7 +19,7 @@ import kotlin.collections.component2
  * Class responsible for performing NER (Named Entity Recognition) inference on-device using a TFLite model.
  * It tokenizes input text, runs inference, and reconstructs the output with masked PII labels.
  */
-class NERModelPreprocessing(
+class NERPreprocessing(
     context: Context,
     private val tokenizer: IWordPieceTokenizer
 ) : INerProcessing {

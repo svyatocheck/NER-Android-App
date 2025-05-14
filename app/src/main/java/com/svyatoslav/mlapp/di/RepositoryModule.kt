@@ -1,31 +1,34 @@
 package com.svyatoslav.mlapp.di
 
+import androidx.room.Room
 import com.svyatoslav.mlapp.core.IDpNoiser
 import com.svyatoslav.mlapp.core.IHMACMasker
 import com.svyatoslav.mlapp.core.INerProcessing
 import com.svyatoslav.mlapp.core.IRegexDetector
 import com.svyatoslav.mlapp.core.ITextPostprocessor
 import com.svyatoslav.mlapp.core.IWordPieceTokenizer
-import com.svyatoslav.mlapp.core.models.NERModelPreprocessing
+import com.svyatoslav.mlapp.core.models.NERPreprocessing
 import com.svyatoslav.mlapp.core.nlp.DpNoiser
 import com.svyatoslav.mlapp.core.nlp.HMACMasker
 import com.svyatoslav.mlapp.core.nlp.RegexDetector
 import com.svyatoslav.mlapp.core.nlp.TextPostprocessor
 import com.svyatoslav.mlapp.core.nlp.WordPieceTokenizer
+import com.svyatoslav.mlapp.data.IJournalRepository
 import com.svyatoslav.mlapp.data.ITextPreprocessingRepository
+import com.svyatoslav.mlapp.data.repository.JournalRepository
 import com.svyatoslav.mlapp.data.repository.TextPreprocessingRepository
+import com.svyatoslav.mlapp.data.source.local.AppDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val repositoryModule = module {
     // Core components
     single<IWordPieceTokenizer> { WordPieceTokenizer(androidContext()) }
-    single<INerProcessing> { NERModelPreprocessing(androidContext(), get()) }
+    single<INerProcessing> { NERPreprocessing(androidContext(), get()) }
     single<IRegexDetector>{ RegexDetector() }
     single<IDpNoiser>{ DpNoiser() }
     single<IHMACMasker>{ HMACMasker("secret-key") }
     single<ITextPostprocessor> { TextPostprocessor() }
-
     // Repository
     single<ITextPreprocessingRepository> {
         TextPreprocessingRepository(
@@ -36,6 +39,17 @@ val repositoryModule = module {
             hmac = get()
         )
     }
-
     // single{ TextRepository(get()) }
+
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            AppDatabase::class.java,
+            "journal.db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+    single { get<AppDatabase>().noteDao() }
+    single<IJournalRepository> { JournalRepository(get(), get()) }
 }

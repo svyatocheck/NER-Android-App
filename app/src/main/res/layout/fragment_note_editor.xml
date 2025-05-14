@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/windowBackground">
+
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Saving..."
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/editTitle"
+        android:hint="Title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:maxLines="2"/>
+
+    <EditText
+        android:id="@+id/editContent"
+        android:hint="Write your note..."
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="top"
+        android:background="@null"
+        android:overScrollMode="always"
+        android:scrollbars="vertical"
+        android:inputType="textMultiLine|textCapSentences"
+        android:maxLines="1000"/>
+
+</LinearLayout>
