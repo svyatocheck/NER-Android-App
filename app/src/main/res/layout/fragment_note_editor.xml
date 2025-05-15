@@ -1,43 +1,90 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/windowBackground">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.entry.NoteEditorFragment">
 
-    <TextView
-        android:id="@+id/textStatus"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Saving..."
-        android:textSize="12sp"
-        android:visibility="gone"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginBottom="8dp"/>
+        app:liftOnScroll="true">
 
-    <EditText
-        android:id="@+id/editTitle"
-        android:hint="Title"
-        android:textSize="20sp"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="2dp"
+            app:title="@string/note"
+            app:layout_scrollFlags="enterAlways|scroll|snap"
+            tools:title="Note" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:gravity="top|left"
+                android:text="Saving..."
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTitle"
+                style="@style/NoteEditText"
+                android:hint="Title"
+                android:maxLines="2"
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editContent"
+                style="@style/NoteEditText"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:hint="Write your note..."
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLines="1000"
+                android:overScrollMode="always"
+                android:scrollbars="vertical"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAskWisdom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:text="✨ Ask Wisdom Cat ✨"
         android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:maxLines="2"/>
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        app:cornerRadius="100dp"
+        android:layout_marginBottom="128dp"
+        app:icon="@drawable/cat"
+        app:iconPadding="8dp"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        app:iconGravity="textStart"
+        style="@style/Widget.Material3.Button.TonalButton" />
 
-    <EditText
-        android:id="@+id/editContent"
-        android:hint="Write your note..."
-        android:textSize="16sp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="top"
-        android:background="@null"
-        android:overScrollMode="always"
-        android:scrollbars="vertical"
-        android:inputType="textMultiLine|textCapSentences"
-        android:maxLines="1000"/>
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

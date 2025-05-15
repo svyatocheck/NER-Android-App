@@ -14,7 +14,8 @@ val viewModelModule = module {
             retrieveUseCase = get(),
             updateUseCase = get(),
             savedStateHandle = get(),
-            createUseCase = get()
+            createUseCase = get(),
+            wisdomUseCase = get()
         ) 
     }
 

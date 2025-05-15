@@ -1,5 +1,6 @@
 package com.svyatoslav.mlapp.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -9,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.svyatoslav.mlapp.R
+import androidx.core.content.edit
 
 class MainActivity : AppCompatActivity() {
 

@@ -52,6 +52,9 @@ class TextPreprocessingRepository(
             val finalMasked = when (mode) {
                 Mode.FAST -> rawMasked                             // Basic masking only
                 Mode.SECURE -> dp.addNoise(hmac.mask(rawMasked))   // HMAC + differential privacy
+                Mode.NONE -> {
+                    return@withContext text to 0L
+                }
             }
 
             // Step 5: Compute total latency (NER + optional DP latency)

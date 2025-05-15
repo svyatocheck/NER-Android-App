@@ -6,6 +6,8 @@ import com.svyatoslav.mlapp.domain.GetAllJournalNotesUseCase
 import com.svyatoslav.mlapp.domain.ProcessTextUseCase
 import com.svyatoslav.mlapp.domain.RetrieveJournalNoteUseCase
 import com.svyatoslav.mlapp.domain.UpdateNoteUseCase
+import com.svyatoslav.mlapp.domain.WisdomUseCase
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -17,5 +19,13 @@ val useCaseModule = module {
     factory { GetAllJournalNotesUseCase(get()) }
     factory { DeleteNoteUseCase(get()) }
     factory { CreateNewNoteUseCase(get()) }
+
+    single {
+        WisdomUseCase(
+            wisdomRepository = get(),
+            preprocessingRepository = get(),
+            context = androidContext()
+        )
+    }
 
 }

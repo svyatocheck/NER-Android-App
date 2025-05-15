@@ -3,6 +3,7 @@ package com.svyatoslav.mlapp.ui.journal
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -23,8 +24,7 @@ class JournalFragment : Fragment(R.layout.fragment_journal_list) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentJournalListBinding.bind(view)
 
-        val navController = findNavController()
-
+        binding.progressCircular.visibility = View.VISIBLE
         val adapter = JournalNoteAdapter(
             onNoteClick = { openNote(it) },
             onNoteSwiped = object : OnNoteSwipedListener {
@@ -71,6 +71,7 @@ class JournalFragment : Fragment(R.layout.fragment_journal_list) {
             adapter.submitList(notes)
 
             val isEmpty = notes.isNullOrEmpty()
+            binding.progressCircular.visibility = View.GONE
             binding.emptyText.visibility = if (isEmpty) View.VISIBLE else View.GONE
             binding.list.visibility = if (isEmpty) View.GONE else View.VISIBLE
             //binding.fabAdd.visibility = if (isEmpty) View.VISIBLE else View.VISIBLE
